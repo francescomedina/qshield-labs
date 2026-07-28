@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q‑SHIELD</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    /* NAVBAR */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px; /* Incrementato leggermente per ospitare il logo più grande */
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: table;
+        padding: 0 40px;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-container {
+        display: table-row;
+    }
+
+    .nav-cell {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .nav-left {
+        width: 300px;
+    }
+
+    nav .logo {
+        display: inline-block;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    /* LOGO DOPPIO DELLA DIMENSIONE PRECEDENTE */
+    .logo-icon {
+        height: 48px;
+        width: 48px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 12px;
+        border-radius: 8px;
+    }
+
+    .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        display: inline-block;
+        vertical-align: middle;
+        letter-spacing: -0.5px;
+    }
+
+    nav ul {
+        display: inline-block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    nav ul li {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        letter-spacing: 0.5px;
+        margin: 0 22px;
+        transition: color 0.2s;
+    }
+
+    nav ul li:hover {
+        color: #000;
+    }
+
+    .nav-right {
+        width: 350px;
+        text-align: right;
+    }
+
+    .right-content {
+        display: inline-block;
+    }
+
+    .lang {
+        font-size: 12px;
+        font-weight: 700;
+        color: #94a3b8;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 20px;
+    }
+
+    .lang span {
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 20px;
+        transition: all 0.2s;
+        margin-left: 4px;
+        display: inline-block;
+    }
+
+    .lang span:hover {
+        color: #0f172a;
+    }
+
+    .lang span.active {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    nav .demo-btn {
+        background: #10b981;
+        padding: 10px 22px;
+        border-radius: 25px;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 13px;
+        display: inline-block;
+        vertical-align: middle;
+        transition: opacity 0.2s;
+    }
+
+    nav .demo-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* STRUTTURA SLIDES DIVISE A DUE COLONNE */
+    .split-section {
+        display: table;
+        width: 100%;
+        height: 100vh;
+        table-layout: fixed;
+        background-color: #f8fafc;
+    }
+
+    .split-wrapper {
+        display: table-row;
+    }
+
+    .split-left-col {
+        display: table-cell;
+        width: 50%;
+        vertical-align: middle;
+        padding-left: 80px;
+        padding-right: 50px;
+    }
+
+    .split-right-col {
+        display: table-cell;
+        width: 50%;
+        vertical-align: middle;
+        padding-right: 80px;
+        padding-left: 30px;
+    }
+
+    .section-subtitle {
+        font-size: 12px;
+        font-weight: 700;
+        color: #10b981;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+    
+    .section-subtitle.red-subtitle {
+        color: #ef4444;
+    }
+
+    .hero-claim {
+        font-size: 72px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -2.5px;
+        color: #0f172a;
+        margin: 0 0 25px 0;
+    }
+
+    .hero-claim span.highlight {
+        color: #10b981;
+    }
+
+    .hero-sub {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #64748b;
+        max-width: 460px;
+        margin-bottom: 35px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 14px 26px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        display: inline-block;
+        margin-right: 12px;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: #10b981;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background: #059669;
+    }
+
+    .btn-secondary {
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    .btn-secondary:hover {
+        background: #e2e8f0;
+    }
+
+    .split-image-box {
+        width: 100%;
+        height: calc(100vh - 160px);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+    }
+
+    .split-image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* SLIDE MULTI-CARD (COME FUNZIONA & SICUREZZA) */
+    .multi-card-section {
+        background: #f8fafc;
+        padding: 140px 80px 100px 80px;
+        min-height: 100vh;
+    }
+
+    .section-main-title {
+        font-size: 46px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -1.5px;
+        color: #0f172a;
+        max-width: 850px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .section-p-desc {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #64748b;
+        max-width: 750px;
+        margin-top: 0;
+        margin-bottom: 50px;
+    }
+
+    .cards-table {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 20px 0;
+    }
+
+    .card-column {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 35px 28px;
+        height: 320px;
+        box-shadow: 0 4px 25px rgba(15, 23, 42, 0.015);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+    }
+
+    .card-icon-box {
+        width: 44px;
+        height: 44px;
+        background: #e8fbf3;
+        border-radius: 10px;
+        display: block;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .card-icon-box.red-box {
+        background: #fef2f2;
+    }
+
+    .card-icon-box svg {
+        width: 22px;
+        height: 22px;
+        margin-top: 11px;
+        fill: #10b981;
+    }
+    
+    .card-icon-box.red-box svg {
+        fill: #ef4444;
+    }
+
+    .card-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0 0 12px 0;
+        letter-spacing: -0.3px;
+    }
+
+    .card-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #64748b;
+        margin: 0;
+    }
+
+    /* TESTO SPECIFICO PER SLIDE 3 */
+    .slide3-main-title {
+        font-size: 44px;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1.5px;
+        color: #0f172a;
+        margin: 0 0 30px 0;
+    }
+
+    .slide3-p1 {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #475569;
+        margin: 0 0 25px 0;
+    }
+
+    .slide3-p2 {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #64748b;
+        margin: 0;
+    }
+
+    /* SLIDE 5 - CASO REALE (PANNELLO INTEGRALE) */
+    #slide5 {
+        background: #f8fafc;
+        padding: 120px 80px 80px 80px;
+        min-height: 100vh;
+    }
+    
+    .case-container {
+        background: #fff5f5;
+        border: 1px solid #fee2e2;
+        border-radius: 24px;
+        padding: 60px;
+        width: 100%;
+    }
+    
+    .case-header-table {
+        display: table;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+    
+    .case-header-row {
+        display: table-row;
+    }
+    
+    .case-icon-cell {
+        display: table-cell;
+        width: 60px;
+        vertical-align: middle;
+    }
+    
+    .case-title-cell {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .case-flame-icon {
+        width: 44px;
+        height: 44px;
+        background: #fecaca;
+        border-radius: 50%;
+        text-align: center;
+    }
+    
+    .case-flame-icon svg {
+        width: 22px;
+        height: 22px;
+        margin-top: 11px;
+        fill: #ef4444;
+    }
+    
+    .case-tagline {
+        font-size: 13px;
+        font-weight: 700;
+        color: #ef4444;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    
+    .case-text-description {
+        font-size: 16px;
+        line-height: 1.65;
+        color: #475569;
+        margin-bottom: 50px;
+        max-width: 1100px;
+    }
+    
+    /* Griglia delle metriche */
+    .metrics-table {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    .metrics-row {
+        display: table-row;
+    }
+    
+    .metric-column {
+        display: table-cell;
+    }
+    
+    .metric-number {
+        font-size: 48px;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+    
+    .metric-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    /* SEZIONE PERFORMANCE */
+    .performance-section {
+        background: #ffffff;
+        color: #0f172a;
+        padding: 120px 80px;
+        min-height: 100vh;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .perf-title-box {
+        max-width: 600px;
+        margin-bottom: 60px;
+    }
+
+    .perf-tag {
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #10b981;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .perf-h2 {
+        font-size: 44px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -1.5px;
+        margin: 0;
+    }
+
+    .perf-h2 span {
+        color: #64748b;
+    }
+
+    /* Griglia KPI */
+    .kpi-row-table {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 20px 0;
+        margin-bottom: 60px;
+    }
+
+    .kpi-cell {
+        display: table-cell;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+    }
+
+    .kpi-title {
+        font-family: monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .kpi-split-vals {
+        display: table;
+        width: 100%;
+    }
+
+    .kpi-val-subcol {
+        display: table-cell;
+        width: 50%;
+    }
+
+    .kpi-val-label {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-bottom: 4px;
+    }
+
+    .kpi-value-num {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .kpi-value-num.quantum-highlight {
+        color: #10b981;
+    }
+
+    .kpi-value-num.trad-highlight {
+        color: #64748b;
+    }
+
+    /* TABELLA CONFRONTO DIRETTO */
+    .comparison-title {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+    }
+
+    .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .comp-table th {
+        border-bottom: 2px solid #e2e8f0;
+        padding: 16px 0;
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #64748b;
+        text-align: left;
+        letter-spacing: 1px;
+    }
+
+    .comp-table td {
+        border-bottom: 1px solid #edf2f7;
+        padding: 20px 0;
+        font-size: 15px;
+    }
+
+    .comp-table .mono-cell {
+        font-family: monospace;
+    }
+
+    .comp-table .text-muted {
+        color: #64748b;
+    }
+
+    .comp-table .text-quantum {
+        color: #10b981;
+        font-weight: 600;
+    }
+
+    .badge-improvement {
+        background: #e6f4ea;
+        color: #137333;
+        font-family: monospace;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    /* SEZIONE ZOOM CELLE */
+    .standard-section {
+        padding: 120px 80px;
+        min-height: 100vh;
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .standard-section.alt-bg {
+        background: #f8fafc;
+    }
+
+    .standard-section h1 {
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .img-block {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .img-block img {
+        width: 100%;
+        max-width: 70%;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+
+    /* SEZIONE CONTATTI */
+    .contact-wrapper {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .contact-row {
+        display: table-row;
+    }
+
+    .contact-left-info {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+        padding-right: 60px;
+    }
+
+    .contact-right-form {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+    }
+
+    .contact-p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #64748b;
+        margin-bottom: 40px;
+    }
+
+    .contact-method {
+        margin-bottom: 30px;
+    }
+
+    .contact-method-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #10b981;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .contact-method-link {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        text-decoration: none;
+    }
+
+    .contact-method-link:hover {
+        color: #10b981;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #0f172a;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+        border-color: #10b981;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: #10b981;
+        color: #ffffff;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+        background: #059669;
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-cell nav-left">
+            <div class="logo" onclick="scrollToSlide('slide1')">
+                <img src="img/icon.jpeg" class="logo-icon" alt="Q-SHIELD Logo">
+                <div class="logo-text">Q‑SHIELD</div>
+            </div>
+        </div>
+        <div class="nav-cell">
+            <ul>
+                <li onclick="scrollToSlide('slide2')" id="menu-tech">TECNOLOGIA</li>
+                <li onclick="scrollToSlide('slide4')" id="menu-sec">SICUREZZA</li>
+                <li onclick="scrollToSlide('performance-section')" id="menu-perf">PERFORMANCE</li>
+                <li onclick="scrollToSlide('contact-section')" id="menu-cont">CONTATTI</li>
+            </ul>
+        </div>
+        <div class="nav-cell nav-right">
+            <div class="right-content">
+                <div class="lang">
+                    <span id="lang-it" class="active" onclick="switchLanguage('it')">🇮🇹 IT</span>
+                    <span id="lang-en" onclick="switchLanguage('en')">🇬🇧 EN</span>
+                </div>
+                <div class="demo-btn" onclick="scrollToSlide('contact-section')" id="btn-demo">RICHIEDI DEMO</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section id="slide1" class="split-section">
+    <div class="split-wrapper">
+        <div class="split-left-col">
+            <div class="section-subtitle" id="hero-tag">Q‑SHIELD SENSING TECHNOLOGY</div>
+            <div class="hero-claim" id="hero-title">
+                Leggi l’invisibile.<br>
+                <span class="highlight">Controlla il futuro.</span>
+            </div>
+            <div class="hero-sub" id="hero-desc">
+                Sensori quantistici economici e non invasivi che misurano lo stato interno
+                delle celle della batteria con precisione atomica.
+            </div>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSlide('slide2')" id="hero-btn1">Scopri la Tecnologia &rarr;</button>
+                <button class="btn-secondary" onclick="scrollToSlide('slide-zoom')" id="hero-btn2">Specifiche Tecniche</button>
+            </div>
+        </div>
+        
+        <div class="split-right-col">
+            <div class="split-image-box">
+                <img src="img/LFP_TMR.png" alt="Q‑SHIELD battery sensor">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="slide2" class="multi-card-section">
+    <div class="section-subtitle" id="how-tag">// COME FUNZIONA</div>
+    <div class="section-main-title" id="how-title">
+        Analisi del campo magnetico per rilevare micro-anomalie appena si formano.
+    </div>
+    <div style="height:20px;"></div>
+
+    <div class="cards-table">
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 22c4.97 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61l-1.42 1.42C18.4 9.92 19 11.39 19 13c0 3.86-3.14 7-7 7s-7-3.14-7-7c0-2.5 1.32-4.69 3.29-5.92L6.87 5.66C4.43 7.35 2.81 10 2.11 13c0 4.97 4.03 9 8.89 9zm0-18c-3.86 0-7 3.14-7 7 0 1.61.55 3.09 1.46 4.27l1.42-1.42C7.3 12.92 7 12 7 11c0-2.76 2.24-5 5-5s5 2.24 5 5c0 .73-.16 1.42-.45 2.05l1.42 1.42c.64-1.01 1.03-2.2 1.03-3.47 0-3.86-3.14-7-7-7zm0 5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </div>
+                <div class="card-title" id="c1-title">Magnetometria Quantistica</div>
+                <div class="card-text" id="c1-desc">Sensori quantistici che rilevano le variazioni del campo magnetico generate da micro-anomalie all'interno della cella.</div>
+            </div>
+        </div>
+
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                </div>
+                <div class="card-title" id="c2-title">Non Invasivo</div>
+                <div class="card-text" id="c2-desc">Integrato nello strato di separatore isolante del pacco batteria. Nessuna lavorazione aggiuntiva, nessun rischio aggiuntivo.</div>
+            </div>
+        </div>
+
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M10.5 2H13v3h-2.5V2zM6 6h12v2H6V6zm0 4h12v2H6v-2zm0 4h12v2H6v-2zm0 4h12v2H6v-2zM2 2h2v20H2V2zm18 0h2v20h-2V2z"/></svg>
+                </div>
+                <div class="card-title" id="c3-title">Precisione Subatomica</div>
+                <div class="card-text" id="c3-desc">Risoluzione di 10 picoTesla. Mappa la distribuzione di corrente interna con fedeltà senza precedenti.</div>
+            </div>
+        </div>
+
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+                </div>
+                <div class="card-title" id="c4-title">Tempo Reale</div>
+                <div class="card-text" id="c4-desc">Acquisizione dati a frequenza superiore a 1 kHz con latenza inferiore al millisecondo.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="slide3" class="split-section">
+    <div class="split-wrapper">
+        <div class="split-left-col">
+            <div class="slide3-main-title" id="s3-title">
+                Il cambio di paradigma: vedere dentro la cella senza aprirla.
+            </div>
+            <div class="slide3-p1" id="s3-p1">
+                Il sensore Q-SHIELD rileva i campi magnetici con una sensibilità tale da riconoscere micro-anomalie causate da dendriti o imperfezioni strutturali non appena si formano.
+            </div>
+            <div class="slide3-p2" id="s3-p2">
+                <strong>Cambio di paradigma:</strong> non si misurano più grandezze esterne alla cella — tensione, temperatura superficiale, corrente — ma si osserva direttamente ciò che accade al suo interno, con precisione assoluta e senza alcun contatto.
+            </div>
+        </div>
+        
+        <div class="split-right-col">
+            <div class="split-image-box">
+                <img src="img/cellaok.png" alt="Il cambio di paradigma Q-SHIELD">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="slide4" class="multi-card-section">
+    <div class="section-subtitle red-subtitle" id="sec-tag">// SICUREZZA</div>
+    <div class="section-main-title" id="sec-title">
+        Dati che salvano le tue celle evitando miliardi di danni.
+    </div>
+    <div class="section-p-desc" id="sec-desc">
+        Un guasto non rilevato in tempo non è solo un problema tecnico: è un rischio esistenziale per l'impianto, per il brand e per il bilancio aziendale. Q-SHIELD rileva le micro-anomalie prima che diventino incendi.
+    </div>
+
+    <div class="cards-table">
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box red-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 .587c-3.668 4.711-2.917 8.019-1.31 9.944-3.176-1.579-4.237-5.322-3.111-7.854-4.529 3.529-4.582 9.493-.412 12.836 2.455 1.968 5.626 2.417 8.32 1.487.674-.233 1.3-.591 1.83-1.042 3.551-3.037 2.453-8.814-1.503-11.455 1.545 2.502-.456 5.567-2.735 4.103.957-3.048-1.282-6.529-1.079-8.019z"/></svg>
+                </div>
+                <div class="card-title" id="sec-c1-title">Rischio incendi</div>
+                <div class="card-text" id="sec-c1-desc">Le anomalie termiche e i dendriti possono innescare thermal runaway con propagazione rapida in tutto il pacco batteria.</div>
+            </div>
+        </div>
+
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box red-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+                </div>
+                <div class="card-title" id="sec-c2-title">Disservizi operativi</div>
+                <div class="card-text" id="sec-c2-desc">Un impianto BESS fuori servizio può interrompere la fornitura energetica per intere aree, con conseguenze su contratti e penali.</div>
+            </div>
+        </div>
+
+        <div class="card-column">
+            <div class="card">
+                <div class="card-icon-box red-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 8h2v2h-2v2H11v-2H9v-2h2V8H9V6h2V4h2v2h2v2h-2v2z"/></svg>
+                </div>
+                <div class="card-title" id="sec-c3-title">Danni di immagine</div>
+                <div class="card-text" id="sec-c3-desc">I guasti catastrofici espongono produttori e operatori a cause legali, perdita di contratti e danni reputazionali irreversibili.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="slide5">
+    <div class="case-container">
+        <div class="case-header-table">
+            <div class="case-header-row">
+                <div class="case-icon-cell">
+                    <div class="case-flame-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 14h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    </div>
+                </div>
+                <div class="case-title-cell">
+                    <div class="case-tagline" id="case-tag">CASO REALE — CALIFORNIA, 2025</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="case-text-description" id="case-desc">
+            L'incendio del centro di stoccaggio energia di Moss Landing, California, ha distrutto uno dei più grandi impianti BESS del mondo. Il sinistro ha causato oltre $500 milioni di danni, con settimane di disservizi energetici nella regione e gravi ripercussioni reputazionali per gli operatori coinvolti. Un sistema di monitoraggio interno avrebbe potuto intercettare l'anomalia tecnica ore prima dell'evento.
+        </div>
+        
+        <div class="metrics-table">
+            <div class="metrics-row">
+                <div class="metric-column">
+                    <div class="metric-number">$500M+</div>
+                    <div class="metric-label" id="m1-lbl">Danni totali stimati</div>
+                </div>
+                <div class="metric-column">
+                    <div class="metric-number">2025</div>
+                    <div class="metric-label" id="m2-lbl">Moss Landing, California</div>
+                </div>
+                <div class="metric-column">
+                    <div class="metric-number">300 MWh</div>
+                    <div class="metric-label" id="m3-lbl">Capacità distrutta</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="performance-section" class="performance-section">
+    <div class="perf-title-box">
+        <div class="perf-tag" id="perf-tag">// Performance</div>
+        <h2 class="perf-h2" id="perf-title">
+            Dati che allungano la vita<br>
+            <span id="perf-title-span">delle tue batterie.</span>
+        </h2>
+    </div>
+
+    <div class="kpi-row-table">
+        <div class="kpi-cell">
+            <div class="kpi-title" id="kpi1-t">SoH Attuale (Stato di Salute)</div>
+            <div class="kpi-split-vals">
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi1-q">Quantistico</div>
+                    <div class="kpi-value-num quantum-highlight">96.2%</div>
+                </div>
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi1-t">Tradizionale</div>
+                    <div class="kpi-value-num trad-highlight">78.4%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kpi-cell">
+            <div class="kpi-title" id="kpi2-t">Precisione SoC</div>
+            <div class="kpi-split-vals">
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi2-q">Quantistico</div>
+                    <div class="kpi-value-num quantum-highlight">99.99%</div>
+                </div>
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi2-t">Tradizionale</div>
+                    <div class="kpi-value-num trad-highlight">95.2%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kpi-cell">
+            <div class="kpi-title" id="kpi3-t">Anomalie Rilevate</div>
+            <div class="kpi-split-vals">
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi3-q">Quantistico</div>
+                    <div class="kpi-value-num quantum-highlight" id="kpi3-qv">3 pre-guasto</div>
+                </div>
+                <div class="kpi-val-subcol">
+                    <div class="kpi-val-label" id="kpi3-t">Tradizionale</div>
+                    <div class="kpi-value-num trad-highlight" id="kpi3-tv">1 post-guasto</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison-container">
+        <h3 class="comparison-title" id="table-title">Confronto diretto</h3>
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th style="width: 30%;" id="th-metric">Metrica</th>
+                    <th style="width: 23%;" id="th-trad">Tradizionale</th>
+                    <th style="width: 23%;" id="th-quant">Quantistico</th>
+                    <th style="width: 24%; text-align: right;" id="th-imp">Miglioramento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: 600;" id="r1-m">Precisione SoC</td>
+                    <td class="mono-cell text-muted">±5%</td>
+                    <td class="mono-cell text-quantum">±0.01%</td>
+                    <td style="text-align: right;"><span class="badge-improvement">500x</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;" id="r2-m">Vita Utile Batteria</td>
+                    <td class="mono-cell text-muted" id="r2-t">~3 anni</td>
+                    <td class="mono-cell text-quantum" id="r2-q">~4+ anni</td>
+                    <td style="text-align: right;"><span class="badge-improvement">+30%</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;" id="r3-m">Rilevamento Anomalie</td>
+                    <td class="mono-cell text-muted" id="r3-t">Post-guasto</td>
+                    <td class="mono-cell text-quantum" id="r3-q">Pre-guasto</td>
+                    <td style="text-align: right;"><span class="badge-improvement" id="r3-b">Monitoraggio real time</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="slide-zoom" class="standard-section alt-bg">
+    <h1 id="zoom-title">Ogni parametro, documentato.</h1>
+    <div style="font-size: 16px; color: #475569; max-width: 800px; margin-bottom: 20px; line-height: 1.6; font-weight: 500;" id="zoom-desc">
+        Dati di specifica per l'integrazione diretta nei vostri sistemi BMS e nelle architetture di monitoraggio esistenti.
+    </div>
+    <div class="img-block">
+        <img src="img/cellezoom.png" alt="Specifiche e Mappatura Celle Zoom">
+    </div>
+</section>
+
+<section id="contact-section" class="standard-section">
+    <h1 id="contact-title">Richiedi una Demo o Informazioni Commerciali</h1>
+    
+    <div class="contact-wrapper">
+        <div class="contact-row">
+            <div class="contact-left-info">
+                <p class="contact-p" id="contact-desc">
+                    Sei interessato ad integrare la tecnologia di magnetometria quantistica Q-SHIELD nei tuoi sistemi BMS o nei moduli di storage energetico BESS? Contattaci oggi stesso per pianificare una sessione di demo tecnica guidata o per ricevere i datasheet completi.
+                </p>
+                
+                <div class="contact-method">
+                    <div class="contact-method-title" id="cm1-title">Email Principale</div>
+                    <a href="mailto:info@quantumshield.tech" class="contact-method-link">info@quantumshield.tech</a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="contact-method-title" id="cm2-title">Tempi di risposta</div>
+                    <div style="font-size: 15px; color: #64748b; font-weight: 500;" id="cm2-desc">Entro 24 ore lavorative dal lunedì al venerdì.</div>
+                </div>
+            </div>
+
+            <div class="contact-right-form">
+                <form action="#" method="POST" onsubmit="event.preventDefault(); alert(currentLang === 'it' ? 'Richiesta inviata con successo!' : 'Request submitted successfully!');">
+                    <div class="form-group">
+                        <label for="name" id="f-name">Nome Completo</label>
+                        <input type="text" id="name" required placeholder="Inserisci il tuo nome">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company" id="f-comp">Azienda / Ente</label>
+                        <input type="text" id="company" required placeholder="Nome della tua azienda">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" id="f-email">Email Aziendale</label>
+                        <input type="email" id="email" required placeholder="esempio@azienda.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" id="f-msg">Messaggio / Richiesta specifica</label>
+                        <textarea id="message" rows="4" required placeholder="Descrivi brevemente il tuo progetto..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="f-btn">Invia Messaggio &rarr;</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+let currentLang = 'it';
+
+const translations = {
+    it: {
+        menuTech: "TECNOLOGIA", menuSec: "SICUREZZA", menuPerf: "PERFORMANCE", menuCont: "CONTATTI", btnDemo: "RICHIEDI DEMO",
+        heroTag: "Q‑SHIELD SENSING TECHNOLOGY", heroTitle: "Leggi l’invisibile.<br><span class='highlight'>Controlla il futuro.</span>",
+        heroDesc: "Sensori quantistici economici e non invasivi che misurano lo stato interno delle celle della batteria con precisione atomica.",
+        heroBtn1: "Scopri la Tecnologia &rarr;", heroBtn2: "Specifiche Tecniche",
+        howTag: "// COME FUNZIONA", howTitle: "Analisi del campo magnetico per rilevare micro-anomalie appena si formano.",
+        c1Title: "Magnetometria Quantistica", c1Desc: "Sensori quantistici che rilevano le variazioni del campo magnetico generate da micro-anomalie all'interno della cella.",
+        c2Title: "Non Invasivo", c2Desc: "Integrato nello strato di separatore isolante del pacco batteria. Nessuna lavorazione aggiuntiva, nessun rischio aggiuntivo.",
+        c3Title: "Precisione Subatomica", c3Desc: "Risoluzione di 10 picoTesla. Mappa la distribuzione di corrente interna con fedeltà senza precedenti.",
+        c4Title: "Tempo Reale", c4Desc: "Acquisizione dati a frequenza superiore a 1 kHz con latenza inferiore al millisecondo.",
+        s3Title: "Il cambio di paradigma: vedere dentro la cella senza aprirla.",
+        s3P1: "Il sensore Q-SHIELD rileva i campi magnetici con una sensibilità tale da riconoscere micro-anomalie causate da dendriti o imperfezioni strutturali non appena si formano.",
+        s3P2: "<strong>Cambio di paradigma:</strong> non si misurano più grandezze esterne alla cella — tensione, temperatura superficiale, corrente — ma si osserva direttamente ciò che accade al suo interno, con precisione assoluta e senza alcun contatto.",
+        secTag: "// SICUREZZA", secTitle: "Dati che salvano le tue celle evitando miliardi di danni.",
+        secDesc: "Un guasto non rilevato in tempo non è solo un problema tecnico: è un rischio esistenziale per l'impianto, per il brand e per il bilancio aziendale. Q-SHIELD rileva le micro-anomalie prima che diventino incendi.",
+        secC1Title: "Rischio incendi", secC1Desc: "Le anomalie termiche e i dendriti possono innescare thermal runaway con propagazione rapida in tutto il pacco batteria.",
+        secC2Title: "Disservizi operativi", secC2Desc: "Un impianto BESS fuori servizio può interrompere la fornitura energetica per intere aree, con conseguenze su contratti e penali.",
+        secC3Title: "Danni di immagine", secC3Desc: "I guasti catastrofici espongono produttori e operatori a cause legali, perdita di contratti e danni reputazionali irreversibili.",
+        caseTag: "CASO REALE — CALIFORNIA, 2025", caseDesc: "L'incendio del centro di stoccaggio energia di Moss Landing, California, ha distrutto uno dei più grandi impianti BESS del mondo. Il sinistro ha causato oltre $500 milioni di danni, con settimane di disservizi energetici nella regione e gravi ripercussioni reputazionali per gli operatori coinvolti. Un sistema di monitoraggio interno avrebbe potuto intercettare l'anomalia tecnica ore prima dell'evento.",
+        m1Lbl: "Danni totali stimati", m2Lbl: "Moss Landing, California", m3Lbl: "Capacità distrutta",
+        perfTag: "// Performance", perfTitle: "Dati che allungano la vita<br><span>delle tue batterie.</span>",
+        kpi1T: "SoH Attuale (Stato di Salute)", kpi1Q: "Quantistico", kpi1Trad: "Tradizionale",
+        kpi2T: "Precisione SoC", kpi2Q: "Quantistico", kpi2Trad: "Tradizionale",
+        kpi3T: "Anomalie Rilevate", kpi3Q: "Quantistico", kpi3Qv: "3 pre-guasto", kpi3Trad: "Tradizionale", kpi3Tv: "1 post-guasto",
+        tableTitle: "Confronto diretto", thMetric: "Metrica", thTrad: "Tradizionale", thQuant: "Quantistico", thImp: "Miglioramento",
+        r1M: "Precisione SoC", r2M: "Vita Utile Batteria", r2T: "~3 anni", r2Q: "~4+ anni", r3M: "Rilevamento Anomalie", r3T: "Post-guasto", r3Q: "Pre-guasto", r3B: "Monitoraggio real time",
+        zoomTitle: "Ogni parametro, documentato.", zoomDesc: "Dati di specifica per l'integrazione diretta nei vostri sistemi BMS e nelle architetture di monitoraggio esistenti.",
+        contactTitle: "Richiedi una Demo o Informazioni Commerciali",
+        contactDesc: "Sei interessato ad integrare la tecnologia di magnetometria quantistica Q-SHIELD nei tuoi sistemi BMS o nei moduli di storage energetico BESS? Contattaci oggi stesso per pianificare una sessione di demo tecnica guidata o per ricevere i datasheet completi.",
+        cm1Title: "Email Principale", cm2Title: "Tempi di risposta", cm2Desc: "Entro 24 ore lavorative dal lunedì al venerdì.",
+        fName: "Nome Completo", fComp: "Azienda / Ente", fEmail: "Email Aziendale", fMsg: "Messaggio / Richiesta specifica", fBtn: "Invia Messaggio &rarr;"
+    },
+    en: {
+        menuTech: "TECHNOLOGY", menuSec: "SAFETY", menuPerf: "PERFORMANCE", menuCont: "CONTACTS", btnDemo: "REQUEST DEMO",
+        heroTag: "Q‑SHIELD SENSING TECHNOLOGY", heroTitle: "Read the invisible.<br><span class='highlight'>Control the future.</span>",
+        heroDesc: "Low-cost, non-invasive quantum sensors that measure the internal state of battery cells with atomic precision.",
+        heroBtn1: "Discover the Technology &rarr;", heroBtn2: "Technical Specs",
+        howTag: "// HOW IT WORKS", howTitle: "Magnetic field analysis to detect micro-anomalies as soon as they form.",
+        c1Title: "Quantum Magnetometry", c1Desc: "Quantum sensors that detect magnetic field variations generated by internal micro-anomalies inside the cell.",
+        c2Title: "Non-Invasive", c2Desc: "Integrated directly within the cell separator layer. No additional manufacturing steps, no added risks.",
+        c3Title: "Subatomic Accuracy", c3Desc: "10 picoTesla resolution. Maps internal current distributions with unprecedented fidelity.",
+        c4Title: "Real-Time Tracking", c4Desc: "Data acquisition frequencies exceeding 1 kHz with latency under a millisecond.",
+        s3Title: "The paradigm shift: peering inside the cell without opening it.",
+        s3P1: "The Q-SHIELD sensor detects magnetic fields with high sensitivity to identify micro-anomalies caused by dendrites or manufacturing imperfections immediately.",
+        s3P2: "<strong>Paradigm shift:</strong> we no longer measure external metrics — voltage, surface temperature, current — but directly observe internal dynamics with total accuracy and zero physical contact.",
+        secTag: "// SAFETY & SECURITY", secTitle: "Data that safeguards your assets, avoiding billions in damage.",
+        secDesc: "An undetected failure is not just a technical flaw: it is an existential threat to your system, brand equity, and financials. Q-SHIELD mitigates risks before they become fires.",
+        secC1Title: "Fire Hazard", secC1Desc: "Thermal abnormalities and early dendrite growth can trigger rapid thermal runaway propagation throughout the pack.",
+        secC2Title: "Operational Downtime", secC2Desc: "A down BESS asset can halt regional power distribution, resulting in heavy contract penalties and liabilities.",
+        secC3Title: "Reputational Damage", secC3Desc: "Catastrophic failures expose manufacturers and operators to massive lawsuits, lost deals, and permanent brand damage.",
+        caseTag: "REAL CASE STUDY — CALIFORNIA, 2025", caseDesc: "The thermal accident at the Moss Landing facility in California compromised one of the world's largest BESS assets. It caused over $500M in cumulative liabilities, operational downtime, and brand damage. An internal tracking ecosystem could have flagged the issue hours prior.",
+        m1Lbl: "Total Estimated Damages", m2Lbl: "Moss Landing, California", m3Lbl: "Destroyed Capacity",
+        perfTag: "// PERFORMANCE", perfTitle: "Data built to extend<br><span>your battery lifecycle.</span>",
+        kpi1T: "Current SoH (State of Health)", kpi1Q: "Quantum", kpi1Trad: "Traditional",
+        kpi2T: "SoC Accuracy Level", kpi2Q: "Quantum", kpi2Trad: "Traditional",
+        kpi3T: "Anomalies Flagged", kpi3Q: "Quantum", kpi3Qv: "3 pre-fault", kpi3Trad: "Traditional", kpi3Tv: "1 post-fault",
+        tableTitle: "Direct Comparison", thMetric: "Metric", thTrad: "Traditional", thQuant: "Quantum", thImp: "Improvement Index",
+        r1M: "SoC Precision", r2M: "Battery Lifecycle", r2T: "~3 years", r2Q: "~4+ years", r3M: "Anomaly Detection", r3T: "Post-fault", r3Q: "Pre-fault", r3B: "Real-time monitoring",
+        zoomTitle: "Every single metric, fully documented.", zoomDesc: "Specification details for direct integration into your active BMS frameworks and existing monitoring architectures.",
+        contactTitle: "Request a Technical Demo or Commercial Info",
+        contactDesc: "Interested in integrating Q-SHIELD quantum magnetometry technology into your custom BMS frameworks or grid-scale BESS modules? Contact our team today to organize a guided demo session or receive the official documentation.",
+        cm1Title: "Primary Email Address", cm2Title: "Turnaround Time", cm2Desc: "Within 24 business hours, Monday through Friday.",
+        fName: "Full Name", fComp: "Company / Organization", fEmail: "Corporate Email", fMsg: "Project Details / Specific Request", fBtn: "Send Message &rarr;"
+    }
+};
+
+function switchLanguage(lang) {
+    currentLang = lang;
+    document.getElementById('lang-it').classList.toggle('active', lang === 'it');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    
+    const l = translations[lang];
+    
+    // Navbar
+    document.getElementById('menu-tech').innerText = l.menuTech;
+    document.getElementById('menu-sec').innerText = l.menuSec;
+    document.getElementById('menu-perf').innerText = l.menuPerf;
+    document.getElementById('menu-cont').innerText = l.menuCont;
+    document.getElementById('btn-demo').innerText = l.btnDemo;
+    
+    // Slide 1
+    document.getElementById('hero-tag').innerText = l.heroTag;
+    document.getElementById('hero-title').innerHTML = l.heroTitle;
+    document.getElementById('hero-desc').innerText = l.heroDesc;
+    document.getElementById('hero-btn1').innerHTML = l.heroBtn1;
+    document.getElementById('hero-btn2').innerText = l.heroBtn2;
+    
+    // Slide 2
+    document.getElementById('how-tag').innerText = l.howTag;
+    document.getElementById('how-title').innerText = l.howTitle;
+    document.getElementById('c1-title').innerText = l.c1Title; document.getElementById('c1-desc').innerText = l.c1Desc;
+    document.getElementById('c2-title').innerText = l.c2Title; document.getElementById('c2-desc').innerText = l.c2Desc;
+    document.getElementById('c3-title').innerText = l.c3Title; document.getElementById('c3-desc').innerText = l.c3Desc;
+    document.getElementById('c4-title').innerText = l.c4Title; document.getElementById('c4-desc').innerText = l.c4Desc;
+    
+    // Slide 3
+    document.getElementById('s3-title').innerText = l.s3Title;
+    document.getElementById('s3-p1').innerText = l.s3P1;
+    document.getElementById('s3-p2').innerHTML = l.s3P2;
+    
+    // Slide 4
+    document.getElementById('sec-tag').innerText = l.secTag;
+    document.getElementById('sec-title').innerText = l.secTitle;
+    document.getElementById('sec-desc').innerText = l.secDesc;
+    document.getElementById('sec-c1-title').innerText = l.secC1Title; document.getElementById('sec-c1-desc').innerText = l.secC1Desc;
+    document.getElementById('sec-c2-title').innerText = l.secC2Title; document.getElementById('sec-c2-desc').innerText = l.secC2Desc;
+    document.getElementById('sec-c3-title').innerText = l.secC3Title; document.getElementById('sec-c3-desc').innerText = l.secC3Desc;
+    
+    // Case
+    document.getElementById('case-tag').innerText = l.caseTag;
+    document.getElementById('case-desc').innerText = l.caseDesc;
+    document.getElementById('m1-lbl').innerText = l.m1Lbl;
+    document.getElementById('m2-lbl').innerText = l.m2Lbl;
+    document.getElementById('m3-lbl').innerText = l.m3Lbl;
+    
+    // Performance
+    document.getElementById('perf-tag').innerText = l.perfTag;
+    document.getElementById('perf-title').innerHTML = l.perfTitle;
+    document.getElementById('kpi1-t').innerText = l.kpi1T;
+    document.getElementById('kpi2-t').innerText = l.kpi2T;
+    document.getElementById('kpi3-t').innerText = l.kpi3T;
+    document.getElementById('kpi3-qv').innerText = l.kpi3Qv;
+    document.getElementById('kpi3-tv').innerText = l.kpi3Tv;
+    
+    // Table
+    document.getElementById('table-title').innerText = l.tableTitle;
+    document.getElementById('th-metric').innerText = l.thMetric;
+    document.getElementById('th-trad').innerText = l.thTrad;
+    document.getElementById('th-quant').innerText = l.thQuant;
+    document.getElementById('th-imp').innerText = l.thImp;
+    document.getElementById('r1-m').innerText = l.r1M;
+    document.getElementById('r2-m').innerText = l.r2M;
+    document.getElementById('r2-t').innerText = l.r2T;
+    document.getElementById('r2-q').innerText = l.r2Q;
+    document.getElementById('r3-m').innerText = l.r3M;
+    document.getElementById('r3-t').innerText = l.r3T;
+    document.getElementById('r3-q').innerText = l.r3Q;
+    document.getElementById('r3-b').innerText = l.r3B;
+    
+    // Zoom
+    document.getElementById('zoom-title').innerText = l.zoomTitle;
+    document.getElementById('zoom-desc').innerText = l.zoomDesc;
+    
+    // Contacts
+    document.getElementById('contact-title').innerText = l.contactTitle;
+    document.getElementById('contact-desc').innerText = l.contactDesc;
+    document.getElementById('cm1-title').innerText = l.cm1Title;
+    document.getElementById('cm2-title').innerText = l.cm2Title;
+    document.getElementById('cm2-desc').innerText = l.cm2Desc;
+    
+    // Form labels
+    document.getElementById('f-name').innerText = l.fName;
+    document.getElementById('f-comp').innerText = l.fComp;
+    document.getElementById('f-email').innerText = l.fEmail;
+    document.getElementById('f-msg').innerText = l.fMsg;
+    document.getElementById('f-btn').innerHTML = l.fBtn;
+}
+
+function scrollToSlide(id) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
