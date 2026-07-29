@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qshield-labs.com/sitemap.xml
